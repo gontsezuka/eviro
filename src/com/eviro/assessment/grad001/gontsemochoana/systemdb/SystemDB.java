@@ -48,14 +48,19 @@ public class SystemDB {
 		firstInstance.currentList.addAll(currentList);
 	}
 	
-	
-	public CurrentAccount getCurrentAccount(String customerNum,int accountNum)
+	/**
+	 * @author zukaLover
+	 * Description: Get Current Account by Account Number
+	 * @param accountNum
+	 * @return
+	 */
+	public CurrentAccount getCurrentAccount(int accountNum)
 	{
 		CurrentAccount accReturn = new CurrentAccount();
 		
 		for(CurrentAccount acc: firstInstance.currentList)
 		{
-			if(acc.getAccountNum()==accountNum && acc.getCustomerNum()==customerNum)
+			if(acc.getAccountNum()==accountNum)
 			{
 				accReturn = acc;
 			}
@@ -64,7 +69,12 @@ public class SystemDB {
 	}
 	
 	
-	
+	/**
+	 * @author zukaLover
+	 * Description: Get Savings Account by account number
+	 * @param accountNum
+	 * @return
+	 */
 	public SavingsAccount getSavingsAccount(int accountNum)
 	{
 		SavingsAccount accReturn = new SavingsAccount();
@@ -80,6 +90,12 @@ public class SystemDB {
 		return accReturn;
 	}
 	
+	/**
+	 * @author zukaLover
+	 * Description: Withdrawal from savings account
+	 * @param accountNum
+	 * @param amountToWithdraw
+	 */
 	public void withdrawFromSavingsAccount(int accountNum,BigDecimal amountToWithdraw)
 	{
 		
@@ -128,4 +144,39 @@ public class SystemDB {
 			}
 		}//END LOOP
 	}//END METHOD
+	
+	/**
+	 * @author zukaLover
+	 * Description: Withdrawal from current account
+	 * @param accountNum
+	 * @param amountToWithdraw
+	 */
+	public void withdrawFromCurrentAccount(int accountNum,BigDecimal amountToWithdraw)
+	{
+		for(CurrentAccount acc: currentList)
+		{
+			if(acc.getAccountNum()==accountNum)
+			{
+				BigDecimal maxWithdrawal=acc.getBalance().add(acc.getOverdraftLimit());
+				int res = maxWithdrawal.compareTo(amountToWithdraw);
+				if(res==0 || res==1)
+				{
+					System.out.println("WE CAN WITHDRAW");
+					
+					BigDecimal newBalance = acc.getBalance().add(amountToWithdraw.negate());	
+					acc.setBalance(newBalance);
+					System.out.println("WITHDRAWAL SUCCESSFULL");
+				}else {
+					/**
+					 * Exception Amount Too Large
+					 */
+				}
+			}else {
+				/**
+				 * TODO
+				 * Account not found
+				 */
+			}
+		}//END LOOP
+	}// END METHOD
 }

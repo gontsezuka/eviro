@@ -54,7 +54,7 @@ public class ApplicationStart {
 		
 		CurrentAccount sav4 = new CurrentAccount();
 		sav4.setOverdraftLimit(new BigDecimal("20000"));
-		sav4.setBalance(new BigDecimal("-5000"));
+		sav4.setBalance(new BigDecimal("5000").negate());
 		sav4.setAccountNum(4);
 		sav4.setId(104);
 		sav4.setCustomerNum("402114");
@@ -67,18 +67,33 @@ public class ApplicationStart {
 		SavingsAccount sav = new SavingsAccount();
 		
 		sav = systemDB.getSavingsAccount(Integer.parseInt("1"));
-		curr = systemDB.getCurrentAccount("402113", 3);
-		
-		System.out.println("Customer:"+sav.getCustomerNum()+ " - account:"+sav.getAccountNum() +" - Balance:"+ sav.getBalance());
-		
+		curr = systemDB.getCurrentAccount(4);
 	
-		sav.withdraw("1", new BigDecimal("200"));
+		//WORKING FOR SAVINGS ACCOUNT
+//		System.out.println("Customer:"+sav.getCustomerNum()+ " - account:"+sav.getAccountNum() +" - Balance:"+ sav.getBalance());
+//		
+//	
+//		sav.withdraw("1", new BigDecimal("200"));
+//		
+//		
+//		SavingsAccount savv = new SavingsAccount();
+//		savv = systemDB.getSavingsAccount(Integer.parseInt("1"));
+//		System.out.println("Customer:"+savv.getCustomerNum()+ " - account:"+savv.getAccountNum() +" - Balance:"+ savv.getBalance());
 		
+		//CURRENT ACCOUNT
 		
-		SavingsAccount savv = new SavingsAccount();
-		savv = systemDB.getSavingsAccount(Integer.parseInt("1"));
-		System.out.println("Customer:"+savv.getCustomerNum()+ " - account:"+savv.getAccountNum() +" - Balance:"+ savv.getBalance());
+		System.out.println("Customer: "+ curr.getCustomerNum()+" - account: "+curr.getAccountNum()+" - Balance: "+ curr.getBalance()+" - overdraft limit: "+ curr.getOverdraftLimit());
+		System.out.println("Max withdrawal =R"+(curr.getBalance().add(curr.getOverdraftLimit())));
+		System.out.println("----------------------------------------------------------------");
+		curr.withdraw("4", new BigDecimal("10000"));
+		
+		CurrentAccount  curr2 = new CurrentAccount();
+		curr2 = systemDB.getCurrentAccount(4);
+		
+		System.out.println("Customer: "+ curr2.getCustomerNum()+" - account: "+curr2.getAccountNum()+" - Balance: "+ curr2.getBalance()+" - overdraft limit: "+ curr2.getOverdraftLimit());
+		System.out.println("Max withdrawal =R"+(curr2.getBalance().add(curr2.getOverdraftLimit())));
 	}
+		
 	
 	public static void loadAccounts()
 	{

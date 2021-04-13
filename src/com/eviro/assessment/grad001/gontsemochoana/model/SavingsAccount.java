@@ -8,16 +8,15 @@ public class SavingsAccount extends Accounts {
 
 	
 	private final BigDecimal MINIMUM_BALANCE = new BigDecimal("1000");
+	private SystemDB systemDB;
 	
 	public SavingsAccount()
 	{
-		
+		systemDB = SystemDB.getInstance();
 	}
 	
 	public void withdraw(String accountNum,BigDecimal amountToWithdraw)
 	{
-		
-		SystemDB systemDB = SystemDB.getInstance();
 		systemDB.withdrawFromSavingsAccount(1, amountToWithdraw);
 	}
 	
