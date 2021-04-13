@@ -70,15 +70,15 @@ public class ApplicationStart {
 		curr = systemDB.getCurrentAccount(4);
 	
 		//WORKING FOR SAVINGS ACCOUNT
-//		System.out.println("Customer:"+sav.getCustomerNum()+ " - account:"+sav.getAccountNum() +" - Balance:"+ sav.getBalance());
-//		
-//	
-//		sav.withdraw("1", new BigDecimal("200"));
-//		
-//		
-//		SavingsAccount savv = new SavingsAccount();
-//		savv = systemDB.getSavingsAccount(Integer.parseInt("1"));
-//		System.out.println("Customer:"+savv.getCustomerNum()+ " - account:"+savv.getAccountNum() +" - Balance:"+ savv.getBalance());
+		System.out.println("Customer:"+sav.getCustomerNum()+ " - account:"+sav.getAccountNum() +" - Balance:"+ sav.getBalance());
+		
+	
+		sav.withdraw("1", new BigDecimal("200"));
+		
+		
+		SavingsAccount savv = new SavingsAccount();
+		savv = systemDB.getSavingsAccount(Integer.parseInt("1"));
+		System.out.println("Customer:"+savv.getCustomerNum()+ " - account:"+savv.getAccountNum() +" - Balance:"+ savv.getBalance());
 		
 		//CURRENT ACCOUNT
 		
